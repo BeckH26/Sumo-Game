@@ -1,5 +1,5 @@
 'Sumo'
-'Febuary 20, 2024'
+'February 20, 2024'
 __author__ = 'Harrison Beck'
 
 import pygame, sys, math
@@ -35,7 +35,7 @@ title = True
 
 #Stage
 stageR=250
-def stage (centerX,centerY):
+def stage (centerX,centerY): # draws stage
     pygame.draw.circle(screen, light_blue, (centerX,centerY),stageR)
 
 #Character 1
@@ -56,7 +56,7 @@ win2 = 0
 p1class = 'normal'
 p2class = 'normal'
 
-def char1(p1class):
+def char1(p1class): # draws player 1
     global x1,y1,radius
     if p1class=='normal':
         pygame.draw.circle(screen, red, (x1,y1),radius)
@@ -67,7 +67,7 @@ def char1(p1class):
     if p1class == 'big':
         pygame.draw.circle(screen, red, (x1,y1),radius+20)
 
-def char2(p2class):
+def char2(p2class): # draws player 2
     global x2,y2, radius
     if p2class=='normal':
         pygame.draw.circle(screen, blue, (x2,y2),radius)
@@ -79,7 +79,7 @@ def char2(p2class):
         pygame.draw.circle(screen, red, (x2,y2),radius+20)
 
 
-def check_collision(x1,y1):
+def check_collision(x1,y1): # checks to see if player in parameter is out of the ring
     global stageR, centerX, centerY
     playerxdistance = abs(centerX - x1)
     playerydistance = abs(centerY - y1)
@@ -90,7 +90,7 @@ def check_collision(x1,y1):
         player_out = False
     return player_out
 
-def player_collisions():
+def player_collisions(): # checks to see if the players hit eachother and makes them bounce
     global x1,x2,y1,y2,radius, x1_dir, y1_dir, x2_dir, y2_dir, p1class, p2class
     playerxdistance = abs(x2 - x1)
     playerydistance = abs(y2 - y1)
@@ -113,7 +113,7 @@ def player_collisions():
             if p2class == 'big':
                 x1_dir, x2_dir, y1_dir, y2_dir = x2_dir, x1_dir * 0.75, y2_dir, y1_dir * 0.75
 
-def player1win():
+def player1win(): # displays the screen for red wins
     global w, h
     while True:
         screen.fill(white)
@@ -152,7 +152,7 @@ def player1win():
 
         pygame.display.update()
 
-def player2win():
+def player2win(): # displays the screen for blue wins
     global w, h
     while True:
         screen.fill(white)
@@ -192,7 +192,7 @@ def player2win():
 
 
 play = True
-def reset():
+def reset(): # resets all x variables, y variables and dirs
     global x2, y2, x1, y1, x1_dir, x2_dir, y1_dir, y2_dir
     x2 = int(centerX - (stageR * -0.8))
     y2 = centerY
@@ -203,13 +203,13 @@ def reset():
     y1_dir = 0
     y2_dir = 0
 
-def score():
+def score(): # displays score
     global win1, win2, w
     redscore, bluescore = textfont.render(str(win1), 1, (red)), textfont.render(str(win2), 1, (blue))
     screen.blit(redscore, [50,50])
     screen.blit(bluescore, [w-50,50])
 
-def title_screen():
+def title_screen(): # displays title screen
     while True:
         screen.fill(white)
         title = textfont.render("Sumo", 1, (black))
@@ -255,7 +255,7 @@ def title_screen():
                 if mouseX in range(int(pa_x), int(pa_x + pa_w)) and mouseY in range(int(pa_y), int(pa_y + pa_h)):
                     return False
 
-def gametype():
+def gametype(): # asks the player what type of game to play player vs cpu or player vs player
     while True:
         screen.fill(white)
 
@@ -299,7 +299,7 @@ def gametype():
         pygame.display.update()
 
 
-def movement(p1class, player):
+def movement(p1class, player): # moves the players according to key inputs
     global x1_dir, y1_dir, x2_dir, y2_dir, x1, y1, x2, y2, win1, win2, title
     keys = pygame.key.get_pressed()
     if player == 1:
